@@ -42,7 +42,7 @@ export const DashboardTemplate: React.FC = () => {
                             <LayoutDashboard size={24} />
                         </div>
                         <div>
-                            <h1 className="text-2xl font-bold text-zinc-900 dark:text-white tracking-tight">Sales Dashboard</h1>
+                            <h1 className="text-2xl text-black font-bold text-zinc-900 dark:text-white tracking-tight">Sales Dashboard</h1>
                             <p className="text-zinc-500 dark:text-zinc-400">Overview of sales performance across years</p>
                         </div>
                     </div>
