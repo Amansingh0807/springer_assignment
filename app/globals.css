@@ -1,10 +1,10 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #020617;
+  --foreground: #e6f8f7;
+  --panel: rgba(2, 6, 23, 0.68);
+  --panel-border: rgba(148, 163, 184, 0.24);
 }
 
 @theme inline {
@@ -14,33 +14,118 @@
   --font-mono: var(--font-geist-mono);
 }
 
-.dark {
-  --background: #000000;
-  --foreground: #ffffff;
-}
-
-* {
-  border-color: theme('colors.zinc.200');
-}
-
-.dark * {
-  border-color: theme('colors.zinc.800');
-}
-
 html,
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), "Segoe UI", sans-serif;
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  margin: 0;
 }
 
-/* Custom animations */
-@keyframes fadeIn {
+body {
+  background-image:
+    radial-gradient(1200px 420px at 12% -10%, rgba(45, 212, 191, 0.25), transparent 70%),
+    radial-gradient(720px 300px at 88% 8%, rgba(56, 189, 248, 0.22), transparent 72%),
+    linear-gradient(180deg, #00112a 0%, #020617 68%);
+}
+
+.stdlib-shell {
+  width: min(1200px, calc(100vw - 2rem));
+  margin: 0 auto;
+  padding: 1.2rem 0 1.6rem;
+  display: grid;
+  gap: 1rem;
+  grid-template-areas:
+    "hero"
+    "stage"
+    "panel";
+}
+
+.hero-copy {
+  grid-area: hero;
+  padding: 1rem 0.35rem 0.2rem;
+  animation: rise 0.55s ease-out;
+}
+
+.hero-copy .eyebrow {
+  margin: 0 0 0.55rem;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #7dd3fc;
+}
+
+.hero-copy h1 {
+  margin: 0;
+  line-height: 1.02;
+  font-size: clamp(2rem, 4.2vw, 4rem);
+  letter-spacing: -0.02em;
+}
+
+.hero-copy p {
+  margin: 0.7rem 0 0;
+  max-width: 70ch;
+  color: rgba(226, 232, 240, 0.88);
+}
+
+.terrain-stage {
+  grid-area: stage;
+  height: min(62vh, 620px);
+  border-radius: 20px;
+  border: 1px solid var(--panel-border);
+  overflow: hidden;
+  background: rgba(1, 7, 18, 0.8);
+  box-shadow: 0 22px 48px rgba(1, 5, 16, 0.48);
+  animation: rise 0.8s ease-out;
+}
+
+.terrain-panel {
+  grid-area: panel;
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.9rem;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  animation: rise 0.9s ease-out;
+}
+
+.terrain-control {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.terrain-control > span {
+  font-size: 0.84rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(186, 230, 253, 0.95);
+}
+
+.terrain-control > div {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+}
+
+.terrain-control input[type="range"] {
+  accent-color: #14b8a6;
+}
+
+.terrain-control strong {
+  min-width: 3.6rem;
+  text-align: right;
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: #cffafe;
+}
+
+@keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
@@ -48,55 +133,18 @@ body {
   }
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
+@media (min-width: 960px) {
+  .stdlib-shell {
+    grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+    grid-template-areas:
+      "hero hero"
+      "stage panel";
+    align-items: start;
   }
-  to {
-    opacity: 1;
-    transform: translateX(0);
+
+  .terrain-panel {
+    position: sticky;
+    top: 1rem;
   }
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.5s ease-out;
-}
-
-.animate-slide-in {
-  animation: slideIn 0.5s ease-out;
-}
-
-/* Smooth transitions for all interactive elements */
-* {
-  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 150ms;
-}
-
-/* Cursor pointer for interactive elements */
-button,
-a,
-[role="button"],
-.cursor-pointer,
-input[type="checkbox"],
-input[type="radio"],
-select {
-  cursor: pointer;
-}
-
-input[type="text"],
-input[type="number"],
-input[type="email"],
-input[type="password"],
-textarea {
-  cursor: text;
-}
-
-/* Hover effects for clickable items */
-button:hover,
-a:hover,
-[role="button"]:hover {
-  cursor: pointer;
 }
 
