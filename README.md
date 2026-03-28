@@ -128,7 +128,5 @@ assignment/
 - Vertex normals are recomputed after each update for clean lighting.
 - OrbitControls are constrained for a stable viewing experience on desktop and mobile.
 
----
 
-If you want, I can also add a GIF section and an architecture diagram block to this README next.
 
